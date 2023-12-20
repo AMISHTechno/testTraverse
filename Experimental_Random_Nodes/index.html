@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Visualization</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+       // JavaScript part
+(async () => {
+    // Fetch the graph data
+    const response = await fetch('../graphData.json');
+    const graphData = await response.json();
+    const theme = main.theme
+
+    // Set up the scene, camera, and renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Helper function to create spheres for nodes
+    function createNode(node) {
+        const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+        const material = new THREE.MeshBasicMaterial({ color: node.type === 'POM' ? 0xff0000 : 0x0000ff });
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+        return sphere;
+    }
+
+    // Add nodes to the scene
+    graphData.nodes.forEach(node => {
+        const color = calculateNodeColor(node.dependenciesCount);
+        const nodeObject = createNode(node);
+        scene.add(nodeObject);
+    });
+
+    // Camera position
+    camera.position.z = 30;
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    
+
+    async function loadGraphData(theme) {
+        const response = await fetch(`${theme}_graphData.json`);
+        const graphData = await response.json();
+        // Clear existing scene and load new data
+        while(scene.children.length > 0){ 
+            scene.remove(scene.children[0]); 
+        }
+        graphData.nodes.forEach(node => {
+            const nodeObject = createNode(node);
+            scene.add(nodeObject);
+        });
+        // ... handle links
+    }
+    
+     
+        graphData.links.forEach(link => {
+            const line = createLink(link, graphData.nodes);
+            scene.add(line);
+        });
+
+            animate();
+        });
+    
+    function calculateNodeColor(dependencyCount) {
+        // Logic to return a color based on dependency count
+        // Example: linear interpolation from green to red
+    }
+    
+    function createSphere(node, color) {
+        // Create a THREE.SphereGeometry object with the color
+    }
+    
+    function createLink(link, nodes) {
+        // Create a THREE.Line object representing the link
+    }
+    
+    function animate() {
+        requestAnimationFrame(animate);
+    
+        // Logic for animating links ('vibrating' effect)
+        // This could involve subtly changing link positions or properties
+    
+        renderer.render(scene, camera);
+    }
+    
+    // ... (rest of the three.js code)
+    </script>
+    
+// Initial load
+loadGraphData(currentTheme);
+
+// Example for switching theme
+function switchTheme(newTheme) {
+    currentTheme = newTheme;
+    loadGraphData(currentTheme);
+}
+})();
+    </script>
+</body>
+</html>
