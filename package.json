@@ -1,0 +1,45 @@
+{
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "d3": "^7.8.5",
+    "dependency-graph": "^1.0.0",
+    "dotenv": "^16.3.1",
+    "dotenv-vault": "^0.1.2",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.2.0",
+    "mkdocs": "^0.0.1",
+    "parse-imports": "^1.1.2",
+    "path": "^0.12.7",
+    "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^0.0.1-alpha.0",
+    "uuid": "^9.0.1"
+  },
+  "name": "testtraverse",
+  "version": "1.0.0",
+  "description": "Map the dependencies of your project from trunk to leaf.",
+  "main": "main.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "npx playwright run"
+  },
+  "keywords": [
+    "dependency",
+    "graph",
+    "ts"
+  ],
+  "author": "Nullzero",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/uuid": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "map-folder": "^1.2.7"
+  }
+}
